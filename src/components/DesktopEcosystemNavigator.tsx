@@ -161,7 +161,7 @@ export const DesktopEcosystemNavigator = () => {
                             ECOSYSTEM_CONTENT.map((card) => (
                                 <motion.div
                                     key={card.id}
-                                    whileHover={{ y: -4, shadow: '0 20px 40px rgba(0,0,0,0.04)' }}
+                                    whileHover={{ y: -4, boxShadow: '0 20px 40px rgba(0,0,0,0.04)' }}
                                     className="bg-white border border-black/5 rounded-3xl p-8 flex flex-col gap-6 group hover:border-[#8DC63F]/20 transition-all duration-500"
                                 >
                                     <div className="flex items-center justify-between">

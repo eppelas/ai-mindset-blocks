@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
-import { PROGRAM_TRACKS, PROGRAM_WEEK_COPY } from '../data';
+import { PROGRAM_TRACKS, PROGRAM_WEEK_COPY, ADVANCED_TRACKS } from '../data';
 import { cn } from '../lib/utils';
 import { MorphSvg } from './MorphSvg';
 
@@ -35,6 +35,7 @@ export const DesktopTechUiV5 = () => {
 
   const track = PROGRAM_TRACKS[activeWeek];
   const weekCopy = PROGRAM_WEEK_COPY[track.id];
+  const advanced = ADVANCED_TRACKS[activeWeek];
 
   const weeklyRhythm = [
     { day: 'ПН', time: '18:00 CET', task: 'ВОРКШОП', type: 'workshop' },
@@ -229,9 +230,17 @@ export const DesktopTechUiV5 = () => {
                           {weekCopy.advancedTopic}
                         </h4>
 
-                        <p className="text-[14px] leading-[1.6] text-white/60 font-medium max-w-[260px] pb-10">
+                        <p className="text-[14px] leading-[1.6] text-white/60 font-medium max-w-[260px] pb-6">
                           {weekCopy.advancedDescription}
                         </p>
+                        
+                        <div className="flex items-center gap-3 pt-5 border-t border-white/10 w-full max-w-[260px]">
+                            <img src={`https://picsum.photos/seed/${advanced.speaker.split(' ')[0]}/200/200`} className="w-10 h-10 rounded-full border border-white/20 grayscale" alt={advanced.speaker} />
+                            <div className="flex flex-col">
+                               <div className="text-[9px] font-mono tracking-widest uppercase opacity-40 mb-0.5 text-white">Speaker</div>
+                               <div className="text-xs font-bold uppercase tracking-wider opacity-90 text-white">{advanced.speaker}</div>
+                            </div>
+                        </div>
                     </motion.div>
                   </AnimatePresence>
                 </div>

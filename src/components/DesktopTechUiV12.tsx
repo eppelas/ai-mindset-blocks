@@ -8,8 +8,8 @@ const PROGRAM_TRACKS = [
     shortDescription: 'ИИ как интерфейс мышления',
     longDescription: 'Освоение техник промптов: Chain-of-Thought, Few-Shot Learning, Custom GPTs. Создание первых персональных ассистентов.',
     events: ['Лекция', 'Воркшоп', 'Q&A', 'Коворкинг'],
-    speaker: 'Виола',
-    image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop',
+    speaker: 'Александр Поваляев',
+    image: 'https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/65d18cfa-068c-41be-84e1-71fb9061e483/image/w=1920,quality=90,fit=scale-down',
   },
   {
     id: '02',
@@ -18,8 +18,8 @@ const PROGRAM_TRACKS = [
     shortDescription: 'Автоматизация и агенты',
     longDescription: 'Управление контекстом: Obsidian + MCP + Claude. Автоматизация через n8n, Make. AI-агенты и workflows.',
     events: ['Лекция', 'Воркшоп', 'Q&A'],
-    speaker: 'Виола',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2940&auto=format&fit=crop',
+    speaker: 'Сергей Хабаров',
+    image: 'https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/60092ff1-af15-4fa1-94a3-70431999739a/image/w=1920,quality=90,fit=scale-down',
   },
   {
     id: '03',
@@ -28,8 +28,8 @@ const PROGRAM_TRACKS = [
     shortDescription: 'Продуктивность и ритуалы',
     longDescription: 'AI для коучинга, рефлексии, персональных ритуалов. Трекинг привычек и целей с поддержкой AI.',
     events: ['Лекция', 'Разбор кейсов', 'Q&A'],
-    speaker: 'Иван',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+    speaker: 'Анна Лозицкая',
+    image: 'https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/d28cb095-3c81-4633-b608-9a3f4d6d02d5/0b9e2c9f-8eb2-4e87-899f-919341b68082/w=1920,quality=90,fit=scale-down',
   },
   {
     id: '04',
@@ -38,8 +38,8 @@ const PROGRAM_TRACKS = [
     shortDescription: 'Творчество и реализация',
     longDescription: 'От идеи до прототипа. Vibe-coding с Cursor, Windsurf, Claude Projects. Создание без технического бэкграунда.',
     events: ['Лекция', 'Воркшоп', 'Демо-день'],
-    speaker: 'Виола',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2940&auto=format&fit=crop',
+    speaker: 'Анка Ставенски',
+    image: 'https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/80776b2f-5e06-416e-b6ef-7ef73f71cbf8/2026-01-16_15.04.52/w=1920,quality=90,fit=scale-down',
   },
 ];
 
@@ -71,7 +71,7 @@ export const DesktopTechUiV12 = () => {
               <div key={track.id} className="relative flex flex-col lg:flex-row gap-8 lg:gap-12 w-full pt-4">
                 
                 {/* Node indicator */}
-                <div className="absolute -left-[30.5px] md:-left-[71.5px] top-6 z-10">
+                <div className="absolute -left-[25px] md:-left-[57px] top-6 z-10">
                   {isCurrent ? (
                     <div className="relative w-4 h-4 rounded-full bg-[#8DC63F]">
                       <div className="absolute inset-0 rounded-full bg-[#8DC63F] animate-ping opacity-50" />

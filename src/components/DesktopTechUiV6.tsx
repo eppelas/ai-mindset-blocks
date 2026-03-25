@@ -289,7 +289,7 @@ export const DesktopTechUiV6 = () => {
                              <div 
                                key={`v6-cal-${idx}-${idxx}`}
                                className={cn(
-                                 "flex-1 flex flex-col px-2 pt-1.5 pb-[2px] relative transition-colors h-[32px] lg:h-[36px]",
+                                 "flex-1 flex flex-col px-2.5 pt-2.5 pb-1.5 relative transition-colors min-h-[58px] lg:min-h-[66px]",
                                  isWorkshop ? "bg-[#8DC63F]" : isCore ? "bg-black" : isEmpty ? "bg-white/70 backdrop-blur-sm" : "bg-white"
                                )}
                              >
@@ -301,7 +301,7 @@ export const DesktopTechUiV6 = () => {
                                   </span>
                                   
                                   {(idxx === 0 || idxx === 2) && (
-                                    <div className={cn("text-[7.5px] font-mono font-bold tracking-widest leading-[1.15] mt-[3px] whitespace-nowrap", 
+                                    <div className={cn("text-[8px] font-mono font-bold tracking-widest leading-none mt-[4px] whitespace-nowrap", 
                                       isWorkshop ? "text-white/80" : "text-[#8DC63F]"
                                     )}>
                                       18:00 CET
@@ -309,7 +309,7 @@ export const DesktopTechUiV6 = () => {
                                   )}
                                 </div>
 
-                                <div className={cn("font-black uppercase mt-auto leading-[0.95] font-sans text-left flex flex-col tracking-tight", 
+                                <div className={cn("font-black uppercase mt-auto leading-[1.05] font-sans text-left flex flex-col tracking-tight", 
                                   isWorkshop || isCore ? "text-white text-[10px] tracking-[0.02em]" : 
                                   isEmpty ? "opacity-0 text-[9px]" : "text-black/70 text-[9px]"
                                 )}>

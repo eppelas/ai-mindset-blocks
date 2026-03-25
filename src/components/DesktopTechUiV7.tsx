@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+
+import { useState } from 'react';
 import { cn } from '../lib/utils';
 import { MorphSvg } from './MorphSvg';
 
@@ -143,13 +144,6 @@ const V7_PROGRAM_DATA = [
 
 export const DesktopTechUiV7 = () => {
   const [activeWeek, setActiveWeek] = useState(0);
-  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const demoDayRef = useRef<HTMLDivElement | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
-  // Scroll spy is no longer needed - Tab based rendering
-  // containerRefs, demoDayRef, scrollContainerRef are no longer needed for scroll, but we can keep refs if we need, but we don't.
-  
   const handleWeekClick = (idx: number) => {
     setActiveWeek(idx);
   };
@@ -222,15 +216,7 @@ export const DesktopTechUiV7 = () => {
               <MorphSvg week={activeWeek === 4 ? 3 : activeWeek} />
            </div>
 
-           <AnimatePresence mode="wait">
-             <motion.div
-               key={`v7-week-${activeWeek}`}
-               initial={{ opacity: 0, y: 10 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -10 }}
-               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-               className="w-full relative z-20 flex flex-col flex-1 p-8 lg:p-14"
-             >
+           <div className="w-full relative z-20 flex flex-col flex-1 p-8 lg:p-14 min-h-[700px]">
                 {activeWeek < 4 && currentWeek ? (
                   <div className="w-full max-w-[800px] mx-auto flex flex-col">
                      <h2 className="text-[28px] md:text-[36px] font-black uppercase tracking-tighter leading-[0.85] text-black mb-8 max-w-[600px]">
@@ -238,51 +224,59 @@ export const DesktopTechUiV7 = () => {
                      </h2>
 
                      {/* WEEKLY RHYTHM COMPACT */}
-                     <div className="mb-10">
-                        <div className="text-[10px] font-mono font-black uppercase tracking-[0.4em] text-black/80 mb-3 ml-1">
-                           НЕДЕЛЬНЫЙ РИТМ <span className="text-black/30 font-normal tracking-widest lowercase ml-2">{currentWeek.dates}</span>
+                     <div className="mb-10 w-full max-w-[650px]">
+                        <div className="flex items-center gap-4 mb-4">
+                           <div className="text-[11px] md:text-[12px] font-mono font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-black">
+                              НЕДЕЛЬНЫЙ РИТМ
+                           </div>
+                           <div className="text-[12px] font-mono text-black/30 lowercase tracking-widest mt-[1px]">
+                              {currentWeek.dates}
+                           </div>
                         </div>
-                        <div className="flex border border-black/10 w-full max-w-[500px] bg-black/10 gap-px rounded-[1px] overflow-hidden shadow-none">
+                        
+                        <div className="grid grid-cols-7 border border-black/10 w-full bg-white">
                            {currentWeek.rhythm.map((item, idxx) => {
                              const isWorkshop = item.task === 'ВОРКШОП';
                              const isCore = item.advanced;
                              const isEmpty = !item.active;
-                             const displayTask = isWorkshop ? "MAIN ВОРКШОП" : item.task;
+                             // Match EXACTLY user's requested text logic:
+                             // "MAIN ВОРКШОП" inside box. 
+                             // Wait, her screenshot shows: MAIN\nВОРКШОП 
+                             const displayTask = isWorkshop ? <><span className="text-[10px]">MAIN</span><br/>ВОРКШОП</> : isCore ? <><span className="text-[10px]">ADVANCED</span><br/>TRACK</> : item.task;
                              
                              return (
                              <div 
                                key={`v7-cal-${activeWeek}-${idxx}`}
                                className={cn(
-                                 "flex-1 flex flex-col px-2 pt-2 pb-[3px] relative transition-colors h-[48px] lg:h-[52px]",
-                                 isWorkshop ? "bg-[#8DC63F]" : isCore ? "bg-black" : isEmpty ? "bg-white/70 backdrop-blur-sm" : "bg-white"
+                                 "flex flex-col h-[70px] lg:h-[80px] p-2 relative border-r border-black/10 last:border-r-0",
+                                 isWorkshop ? "bg-[#8DC63F]" : isCore ? "bg-black" : isEmpty ? "bg-[#F9F9F9]" : "bg-white"
                                )}
                              >
-                                <div className="flex flex-col items-start mb-0">
-                                  <span className={cn("text-[8.5px] font-mono font-black tracking-widest leading-none", 
-                                    isWorkshop ? "text-white/80" : isCore ? "text-white/90" : "text-black/40"
+                                <div className="flex flex-col items-start gap-1">
+                                  <span className={cn("text-[9px] font-mono font-black tracking-widest leading-none", 
+                                    isWorkshop ? "text-white" : isCore ? "text-white" : "text-black/50"
                                   )}>
                                     {item.day}
                                   </span>
                                   
                                   {(idxx === 0 || idxx === 2) && (
-                                    <div className={cn("text-[7.5px] font-mono font-bold tracking-widest leading-[1.15] mt-[3px] whitespace-nowrap", 
-                                      isWorkshop ? "text-white/80" : "text-[#8DC63F]"
+                                    <div className={cn("text-[8px] font-mono font-bold tracking-widest leading-none whitespace-nowrap", 
+                                      isWorkshop ? "text-white/90" : "text-[#8DC63F]"
                                     )}>
                                       18:00 CET
                                     </div>
                                   )}
                                 </div>
 
-                                <div className={cn("font-black uppercase mt-auto leading-[0.95] font-sans text-left flex flex-col tracking-tight", 
-                                  isWorkshop || isCore ? "text-white text-[10px] tracking-[0.02em]" : 
-                                  isEmpty ? "opacity-0 text-[9px]" : "text-black/70 text-[9px]"
+                                <div className={cn("font-black uppercase mt-auto leading-[1.1] font-sans text-left tracking-tight", 
+                                  isWorkshop || isCore ? "text-white text-[9px] sm:text-[10px]" : 
+                                  isEmpty ? "opacity-0 text-[10px]" : "text-black/80 text-[9px] sm:text-[10px]"
                                 )}>
-                                  {displayTask.includes(' ') && (isCore || isWorkshop) 
-                                    ? displayTask.split(' ').map((w, i) => <span key={i}>{w}</span>) 
-                                    : displayTask}
+                                  {displayTask}
                                 </div>
                              </div>
-                           )})}
+                           );
+                           })}
                         </div>
                      </div>
 
@@ -358,10 +352,9 @@ export const DesktopTechUiV7 = () => {
                      </p>
                   </div>
                 )}
-             </motion.div>
-           </AnimatePresence>
+              </div>
+           </div>
         </div>
       </div>
-    </div>
   );
 };
