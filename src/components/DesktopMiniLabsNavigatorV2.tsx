@@ -4,8 +4,8 @@ import { cn } from '../lib/utils';
 
 const ECOSYSTEM_CONTENT = [
   {
-    id: 'space',
-    title: '{space}',
+    id: 'spring-lab',
+    title: 'SPRING MAIN LAB',
     desc: 'Практический клуб AI-практиков',
     status: 'CURRENT',
     icon: (
@@ -17,8 +17,8 @@ const ECOSYSTEM_CONTENT = [
     )
   },
   {
-    id: 'for-teams',
-    title: '{for-teams}',
+    id: 'ai-native-orgs',
+    title: 'AI-NATIVE ORGS',
     desc: 'AI-трансформация команд',
     status: 'CURRENT',
     icon: (
@@ -30,8 +30,8 @@ const ECOSYSTEM_CONTENT = [
     )
   },
   {
-    id: 'ai-native',
-    title: '{ai-native}',
+    id: 'health-sprint',
+    title: 'HEALTH SPRINT',
     desc: 'Агентная инфраструктура',
     status: 'CURRENT',
     icon: (
@@ -43,10 +43,10 @@ const ECOSYSTEM_CONTENT = [
     )
   },
   {
-    id: 'learn',
-    title: '{learn}',
+    id: 'summer-lab',
+    title: 'SUMMER MAIN LAB',
     desc: 'Платформа обучения',
-    status: 'ACTIVE',
+    status: 'NEXT',
     icon: (
       <div className="flex-1 flex flex-col items-center justify-center w-full">
          <span className="font-mono text-[12px] sm:text-[14px] tracking-[0.15em] font-black text-[#8DC63F] whitespace-nowrap" style={{ textShadow: "0 0 8px rgba(141,198,63,0.5)" }}>
@@ -71,39 +71,37 @@ export const DesktopMiniLabsNavigatorV2 = () => {
       {/* Light Theme Container */}
       <div className="w-full max-w-[760px] bg-[#f8f8f8] text-black flex flex-col relative overflow-hidden border border-black/10 shadow-sm">
         
-        {/* Top Header / Divider */}
-        <div className="flex items-center justify-between border-b border-black/10 px-5 py-3 bg-white">
-          <div className="flex items-center gap-3">
-             <div className="w-1.5 h-1.5 bg-[#8DC63F] rounded-full animate-pulse" />
-             <span className="font-mono text-[9px] uppercase font-bold tracking-[0.2em] text-black/40">SYSTEM</span>
-          </div>
-          <div className="font-sans text-[13px] font-black uppercase tracking-widest text-[#8DC63F]">
-            LABS NAVIGATOR
-          </div>
-          <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-black/30 hidden sm:block">
-            [v09.3]
-          </div>
-        </div>
-
         {/* Inner Content Area */}
-        <div className="flex flex-col p-6 relative">
+        <div className="flex flex-col p-4 sm:p-6 relative">
            
            {/* Navigation Tabs - embedded inside */}
-           <div className="flex gap-2 mb-6 border-b border-black/10 pb-3 relative z-10 w-full overflow-x-auto scrollbar-hide">
-              {TABS.map((tab) => (
-                 <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={cn(
-                       "font-mono text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 transition-all outline-none shrink-0",
-                       activeTab === tab.id 
-                         ? "bg-black text-white border border-black" 
-                         : "bg-transparent text-black/50 border border-transparent hover:text-black hover:border-black/20"
-                    )}
-                 >
-                    {tab.label}
-                 </button>
-              ))}
+           <div className="flex items-center justify-between gap-4 mb-4 sm:mb-6 border-b border-black/10 pb-3 relative z-10 w-full overflow-x-auto scrollbar-hide">
+              <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-2">
+                     <div className="w-1.5 h-1.5 bg-[#8DC63F] rounded-full animate-pulse" />
+                     <span className="font-mono text-[9px] uppercase font-bold tracking-[0.2em] text-black/40 hidden sm:inline">SYSTEM</span>
+                  </div>
+                  <div className="font-sans text-[11px] sm:text-[13px] font-black uppercase tracking-widest text-[#8DC63F]">
+                    LABS NAVIGATOR
+                  </div>
+              </div>
+              
+              <div className="flex gap-1.5 sm:gap-2 shrink-0">
+                 {TABS.map((tab) => (
+                    <button
+                       key={tab.id}
+                       onClick={() => setActiveTab(tab.id)}
+                       className={cn(
+                          "font-mono text-[8px] sm:text-[9px] font-bold tracking-[0.1em] sm:tracking-[0.2em] uppercase px-2 py-1 sm:px-3 sm:py-1.5 transition-all outline-none shrink-0",
+                          activeTab === tab.id 
+                            ? "bg-black text-white border border-black" 
+                            : "bg-transparent text-black/50 border border-transparent hover:text-black hover:border-black/20"
+                       )}
+                    >
+                       {tab.label}
+                    </button>
+                 ))}
+              </div>
            </div>
 
            <div className="relative z-10 w-full">

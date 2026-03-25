@@ -1,179 +1,134 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { PROGRAM_TRACKS, PROGRAM_WEEK_COPY, ADVANCED_TRACKS } from '../data';
-import { cn } from '../lib/utils';
-import { MorphSvg } from './MorphSvg';
+
+
+const PROGRAM_TRACKS = [
+  {
+    id: '01',
+    week: 'НЕДЕЛЯ 1',
+    title: 'Prompt Engineering',
+    shortDescription: 'ИИ как интерфейс мышления',
+    longDescription: 'Освоение техник промптов: Chain-of-Thought, Few-Shot Learning, Custom GPTs. Создание первых персональных ассистентов.',
+    events: ['Лекция', 'Воркшоп', 'Q&A', 'Коворкинг'],
+  },
+  {
+    id: '02',
+    week: 'НЕДЕЛЯ 2',
+    title: 'Context Engineering',
+    shortDescription: 'Автоматизация и агенты',
+    longDescription: 'Управление контекстом: Obsidian + MCP + Claude. Автоматизация через n8n, Make. AI-агенты и workflows.',
+    events: ['Лекция', 'Воркшоп', 'Q&A'],
+  },
+  {
+    id: '03',
+    week: 'НЕДЕЛЯ 3',
+    title: 'Mind Engineering',
+    shortDescription: 'Продуктивность и ритуалы',
+    longDescription: 'AI для коучинга, рефлексии, персональных ритуалов. Трекинг привычек и целей с поддержкой AI.',
+    events: ['Лекция', 'Разбор кейсов', 'Q&A'],
+  },
+  {
+    id: '04',
+    week: 'НЕДЕЛЯ 4',
+    title: 'Life Engineering',
+    shortDescription: 'Творчество и реализация',
+    longDescription: 'От идеи до прототипа. Vibe-coding с Cursor, Windsurf, Claude Projects. Создание без технического бэкграунда.',
+    events: ['Лекция', 'Воркшоп', 'Демо-день'],
+  },
+];
+
+const ADVANCED_TRACKS = [
+  { id: 'T1', week: 'НЕДЕЛЯ 1', title: 'AI Coaching', description: 'Для тех, кто выгорел и ищет баланс. AI для коучинга, рефлексии.', speaker: 'Александр Поваляев' },
+  { id: 'T2', week: 'НЕДЕЛЯ 2', title: 'AI Agents', description: 'Автономные AI-системы. Проектирование и запуск AI-агентов.', speaker: 'Сергей Хабаров' },
+  { id: 'T3', week: 'НЕДЕЛЯ 3', title: 'Vibe-Coding', description: 'Творческое программирование. От идеи до прототипа за часы.', speaker: 'Анна Лозицкая' },
+  { id: 'T4', week: 'НЕДЕЛЯ 4', title: 'AI Creative', description: 'Для музыкантов, художников и креативщиков. Генерация визуального контента.', speaker: 'Анка Ставенски' },
+];
 
 export const DesktopTechUiV8 = () => {
-  const [activeWeek, setActiveWeek] = useState(0);
-
-  const track = PROGRAM_TRACKS[activeWeek];
-  const weekCopy = PROGRAM_WEEK_COPY[track.id];
-  const advanced = ADVANCED_TRACKS[activeWeek];
-
-  const weeklyRhythm = [
-    { day: 'ПН', task: 'ВОРКШОП', active: true },
-    { day: 'ВТ', task: 'КОВОРКИНГ', active: true },
-    { day: 'СР', task: 'ADVANCED', active: true, advanced: true },
-    { day: 'ЧТ', task: '', active: false },
-    { day: 'ПТ', task: 'ЛЕКЦИЯ', active: true },
-    { day: 'СБ', task: 'Q&A', active: true },
-    { day: 'ВС', task: '', active: false },
-  ];
-
   return (
-    <div className="w-full max-w-[1240px] mx-auto py-12 px-8 font-sans">
-      <div className="flex flex-col lg:flex-row gap-16 items-start justify-center">
-        
-        {/* LEFT: STEPPER NAVIGATION */}
-        <div className="w-[120px] shrink-0 flex flex-col pt-16">
-          {PROGRAM_TRACKS.map((t, idx) => {
-            const isActive = activeWeek === idx;
-            return (
-              <button
-                key={`v8-st-mechanical-${t.id}`}
-                onClick={() => setActiveWeek(idx)}
-                className="flex items-center gap-6 group mb-14 text-left relative h-12"
-              >
-                {idx < PROGRAM_TRACKS.length - 1 && (
-                  <div className="absolute left-[15px] top-[40px] w-[2px] h-[calc(100%+32px)] bg-black/[0.04]" />
-                )}
-                
-                <div className={cn(
-                  "w-8 h-8 rounded-full border flex items-center justify-center transition-all z-10 shrink-0",
-                  isActive ? "bg-[#8DC63F] border-[#8DC63F]" : "bg-white border-black/[0.08] group-hover:border-black/20"
-                )}>
-                  {isActive && <div className="w-1.5 h-1.5 rounded-full bg-white transition-transform" />}
-                  {!isActive && <div className="w-1 h-1 rounded-full bg-black/10 group-hover:bg-black/30 transition-colors" />}
-                </div>
-
-                <div className="flex flex-col">
-                  <div className={cn("text-[10px] font-mono font-bold uppercase transition-colors mb-0.5", isActive ? "text-[#8DC63F]" : "text-black/30")}>
-                    НЕДЕЛЯ
-                  </div>
-                  <div className={cn("text-[18px] font-black tracking-tighter leading-none transition-colors", isActive ? "text-black" : "text-black/20")}>
-                    0{idx + 1}
-                  </div>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* RIGHT: THE SQUARE CONTENT CARD (GRID VERSION) */}
-        <div className="flex-1 bg-white border border-black/15 min-h-[580px] shadow-sm relative overflow-hidden flex flex-col rounded-none pt-12">
+    <div className="mb-32 text-black">
+      <div className="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory mx-[-1rem] md:mx-[-3rem] px-[1rem] md:px-[3rem] hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
+        {PROGRAM_TRACKS.map((track, idx) => {
+          const advanced = ADVANCED_TRACKS[idx];
           
-          {/* Subtle Grid Background */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-0" 
-               style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          return (
+            <div key={track.id} className="shrink-0 w-[85vw] md:w-[450px] snap-center flex flex-col border border-black/10 shadow-sm rounded-[2rem] overflow-hidden bg-white relative">
+              
+              {/* Top Banner Image (ASCII style) */}
+              <div className="w-full h-48 relative bg-dot-pattern bg-[length:20px_20px] bg-black/5 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90" />
+                <div className="absolute inset-0 flex flex-col justify-center items-center opacity-80 mix-blend-multiply">
+                   {idx === 0 && (
+                     <div className="font-mono text-[10px] text-[#8DC63F] whitespace-pre text-center">
+                        {`      10%\n PROMPT RAIL `}<br/>
+                        <span className="text-4xl">    [ EXE ]  </span><br/>
+                        {`AI MINDSET SIGNAL`}
+                     </div>
+                   )}
+                   {idx === 1 && (
+                     <div className="font-mono text-[10px] text-[#C084FC] whitespace-pre text-center">
+                        {`     STACK\nCONTEXT FIELD`}<br/>
+                        <span className="text-4xl">  [ BASE ]   </span><br/>
+                        {`AI MINDSET SIGNAL`}
+                     </div>
+                   )}
+                   {idx >= 2 && (
+                     <div className="font-mono text-[10px] text-black/40 whitespace-pre text-center">
+                        {`     SYSTEM\n      CORE   `}<br/>
+                        <span className="text-4xl"> [ TARGET ]   </span><br/>
+                        {`AI MINDSET SIGNAL`}
+                     </div>
+                   )}
+                </div>
+                
+                {/* Overlay Tags */}
+                <div className="absolute top-4 left-4 flex gap-2">
+                  <span className="bg-white/90 backdrop-blur-md text-black px-3 py-1.5 rounded-full text-[10px] font-mono tracking-widest font-bold shadow-sm">
+                    {track.week}
+                  </span>
+                </div>
+              </div>
 
-          {/* BACKGROUND ILLUSTRATION */}
-          <motion.div 
-            animate={{
-              scale: activeWeek === 3 ? 1.05 : 0.82,
-              opacity: activeWeek === 3 ? 0.45 : 0.35, 
-              top: activeWeek === 3 ? "2%" : "5%",
-            }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-[-44px] w-[700px] h-[700px] pointer-events-none mix-blend-multiply z-0 flex justify-center"
-          >
-             <MorphSvg week={activeWeek} />
-          </motion.div>
+              {/* Core Content */}
+              <div className="p-8 flex flex-col flex-1">
+                <h3 className="text-3xl font-black uppercase tracking-tighter leading-[0.9] mb-4">{track.title}</h3>
+                <p className="opacity-80 leading-relaxed text-sm md:text-base font-light mb-6">
+                  {track.longDescription}
+                </p>
 
-          {/* ADVANCED TRACK TAG */}
-          <div className="absolute top-12 right-12 z-20 flex flex-col items-end">
-             <div className="flex items-center gap-2 mb-2 relative h-6">
-                <span className="text-[20px] font-black text-[#8DC63F] leading-none mb-[-2px] absolute left-[-18px] top-[64%] -translate-y-1/2 select-none font-sans font-black">*</span>
-                <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-black/40 uppercase leading-none pl-1">ADVANCED TRACK</span>
-             </div>
-             
-             {/* NO-WAIT CROSSFADE ADVANCED BOX with CRYSTALLIZE EFFECT */}
-             <div className="relative min-w-[280px] min-h-[180px]">
-               <AnimatePresence>
-                 <motion.div
-                   key={`v8-adv-crystal-${activeWeek}`}
-                   initial={{ opacity: 0, filter: "blur(14px) contrast(150%)" }} // Crystallize effect (mechanical feel)
-                   animate={{ opacity: 1, filter: "blur(0px) contrast(100%)" }}
-                   exit={{ opacity: 0, filter: "blur(14px) contrast(150%)" }}
-                   transition={{ duration: 0.8, ease: "easeInOut" }}
-                   className="bg-white/30 backdrop-blur-[2px] border border-black/5 p-8 text-right flex flex-col items-end absolute inset-0 pt-8 rounded-none"
-                 >
-                   <h4 className="text-[24px] font-black uppercase text-black/80 tracking-tighter leading-none mb-3">
-                     {advanced.title}
-                   </h4>
-                   <p className="text-[12px] leading-[1.5] text-black/60 font-medium mb-8 max-w-[220px]">
-                     {advanced.description}
-                   </p>
-                   <div className="text-[14px] font-black text-black/70 font-mono tracking-tighter uppercase font-mono italic">
-                     {advanced.speaker}
-                   </div>
-                 </motion.div>
-               </AnimatePresence>
-             </div>
-          </div>
-
-          <div className="relative z-10 flex flex-col flex-1 px-12">
-             
-             {/* MAIN TRACK TAG */}
-             <div className="flex items-center gap-2 mb-6 h-6">
-                <div className="w-1.5 h-1.5 rounded-none bg-black/80 shadow-sm" />
-                <span className="text-black/80 text-[10px] font-mono font-bold uppercase tracking-[0.25em] leading-none">MAIN TRACK</span>
-             </div>
-
-             <div className="flex-1 flex flex-col gap-6 max-w-[580px] relative overflow-hidden">
-                {/* NO-WAIT CROSSFADE with CRYSTALLIZATION (Mechanical/Particle logic) */}
-                <AnimatePresence>
-                  <motion.div
-                    key={`v8-crystal-main-${activeWeek}`}
-                    initial={{ opacity: 0, filter: "blur(20px) contrast(160%) brightness(1.1)", opacity: 0 }} 
-                    animate={{ opacity: 1, filter: "blur(0px) contrast(100%) brightness(1)", opacity: 1 }}
-                    exit={{ opacity: 0, filter: "blur(20px) contrast(160%)" }}
-                    transition={{ duration: 0.9, ease: [0.33, 1, 0.68, 1] }} 
-                    className="flex flex-col absolute inset-0 mt-0"
-                  >
-                    <div className="text-[#8DC63F] font-mono text-[10px] font-bold uppercase tracking-[0.3em] mb-4">
-                      {weekCopy.framedDescription}
+                {/* Events list inline */}
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {track.events.map((evt, eIdx) => (
+                    <span key={eIdx} className="text-[9px] font-mono uppercase tracking-widest px-2 py-1 bg-[#f4f4f4] text-black/60 rounded">
+                      {evt}
+                    </span>
+                  ))}
+                </div>
+                
+                {/* ONE Separator for Advanced Track (STRICTLY RIGHT ALIGNED) */}
+                <div className="mt-auto border-t border-black/10 pt-6 relative bg-gradient-to-b from-transparent to-[#fafafa] -mx-8 -mb-8 px-8 pb-8 flex flex-col items-end text-right">
+                  <div className="flex items-center justify-end gap-2 mb-3">
+                     <div className="font-mono text-[10px] uppercase font-bold tracking-widest opacity-40">Advanced Track</div>
+                     <span className="bg-[#8DC63F] text-black text-[9px] px-2 py-0.5 rounded tracking-widest uppercase font-bold">PRO</span>
+                  </div>
+                  <h4 className="font-bold text-lg mb-1 leading-tight">{advanced.title}</h4>
+                  <p className="text-xs opacity-60 leading-relaxed max-w-[90%] mb-4">{advanced.description}</p>
+                  
+                  <div className="flex justify-between items-end w-full mt-2 pt-4 border-t border-black/5">
+                    <div className="text-left w-1/2">
+                      <div className="text-[9px] uppercase tracking-widest font-mono opacity-40 mb-1">Куратор основной программы</div>
+                      <div className="text-xs font-bold">Команда AI Mindset</div>
                     </div>
-
-                    <h2 className="text-[48px] md:text-[60px] font-black uppercase tracking-tighter leading-[0.82] text-black mb-6">
-                      {track.title}
-                    </h2>
-
-                    <p className="text-[15px] leading-[1.6] text-black/80 font-medium max-w-[440px] mb-12">
-                      {weekCopy.bodyDescription}
-                    </p>
-
-                    {/* COMPACT SQUARE CALENDAR */}
-                    <div className="mt-auto pb-12">
-                      <div className="text-[10px] font-mono font-black uppercase tracking-[0.4em] text-black/40 mb-4 ml-0.5">WEEKLY_RHYTHM</div>
-                      <div className="grid grid-cols-7 w-full max-w-[720px] bg-black/10 gap-px shadow-none overflow-hidden rounded-none border border-black/10">
-                        {weeklyRhythm.map((item, idx) => (
-                          <div key={`v8-cal-sq-${idx}`} 
-                            className={cn(
-                              "flex flex-col h-[40px] p-2 bg-white rounded-none", // Tighter height (40px)
-                              !item.active && "bg-[#F4F4F4]"
-                            )}
-                          >
-                             <div className="flex justify-between items-start mb-0 leading-none">
-                               <span className={cn("text-[8px] font-black font-mono tracking-widest", 
-                                 item.active ? "text-black/30" : "text-black/10"
-                               )}>{item.day}</span>
-                               {item.advanced && <div className="text-[12px] font-black text-[#8DC63F] -mt-1 select-none font-sans">*</div>}
-                             </div>
-                             <div className={cn("text-[9px] font-black uppercase mt-auto leading-none tracking-tighter truncate", 
-                               item.active ? "text-black/90" : "text-transparent", 
-                               item.advanced ? "text-[#8DC63F]" : "")}>
-                               {item.task}
-                             </div>
-                          </div>
-                        ))}
-                      </div>
+                    
+                    <div className="text-right w-1/2">
+                      <div className="text-[9px] uppercase tracking-widest font-mono opacity-40 mb-1">Куратор PRO-трека</div>
+                      <div className="text-xs font-bold">{advanced.speaker}</div>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-             </div>
-          </div>
-        </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          );
+        })}
       </div>
     </div>
   );

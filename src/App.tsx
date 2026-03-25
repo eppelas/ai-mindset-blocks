@@ -19,6 +19,11 @@ import { DesktopPaymentPopupV3 } from './components/DesktopPaymentPopupV3';
 import { DesktopPaymentPopupV4 } from './components/DesktopPaymentPopupV4';
 import { DesktopTechUiV6 } from './components/DesktopTechUiV6';
 import { DesktopTechUiV7 } from './components/DesktopTechUiV7';
+import { DesktopTechUiV8 } from './components/DesktopTechUiV8';
+import { DesktopTechUiV9 } from './components/DesktopTechUiV9';
+import { DesktopTechUiV10 } from './components/DesktopTechUiV10';
+import { DesktopTechUiV12 } from './components/DesktopTechUiV12';
+import { DesktopTechUiV13 } from './components/DesktopTechUiV13';
 import { useState, useEffect } from 'react';
 
 export default function App() {
@@ -128,6 +133,26 @@ export default function App() {
               <div>
                 <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 6</h2>
                 <DesktopTimelineV2 />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 8 (B1)</h2>
+                <DesktopTechUiV8 />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 9 (C3)</h2>
+                <DesktopTechUiV9 />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 10 (C2 / VARIANT 5 ANIMATED)</h2>
+                <DesktopTechUiV10 />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 12 (E1)</h2>
+                <DesktopTechUiV12 />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 13 (D4)</h2>
+                <DesktopTechUiV13 />
               </div>
             </div>
           </div>

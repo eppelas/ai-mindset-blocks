@@ -257,7 +257,7 @@ export const DesktopTechUiV6 = () => {
               <div 
                  key={`v6-week-card-${idx}`} 
                  ref={(el) => { containerRefs.current[idx] = el; }}
-                 className="w-full border border-black/15 shadow-sm bg-white relative overflow-hidden flex flex-col p-5 lg:p-6 scroll-mt-[100px]"
+                 className="w-full border border-black/15 shadow-sm bg-white relative overflow-hidden flex flex-col p-4 lg:p-5 scroll-mt-[100px]"
               >
                   {/* Background Grid */}
                   <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-10 bg-white" 
@@ -269,7 +269,7 @@ export const DesktopTechUiV6 = () => {
                   </div>
 
                   <div className="relative z-20 flex flex-col w-full h-full">
-                     <h2 className="text-[22px] md:text-[24px] font-black uppercase tracking-tighter leading-[0.9] text-black mb-6 max-w-[600px]">
+                     <h2 className="text-[18px] md:text-[20px] font-black uppercase tracking-tighter leading-[0.9] text-black mb-4 max-w-[600px]">
                        {weekData.title}
                      </h2>
 
@@ -289,7 +289,7 @@ export const DesktopTechUiV6 = () => {
                              <div 
                                key={`v6-cal-${idx}-${idxx}`}
                                className={cn(
-                                 "flex-1 flex flex-col px-2 pt-2 pb-[3px] relative transition-colors h-[40px] lg:h-[44px]",
+                                 "flex-1 flex flex-col px-2 pt-1.5 pb-[2px] relative transition-colors h-[32px] lg:h-[36px]",
                                  isWorkshop ? "bg-[#8DC63F]" : isCore ? "bg-black" : isEmpty ? "bg-white/70 backdrop-blur-sm" : "bg-white"
                                )}
                              >

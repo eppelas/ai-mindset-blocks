@@ -22,8 +22,8 @@ export const DesktopTechUi = () => {
   ];
 
   return (
-    <div className="w-full max-w-[1240px] mx-auto py-16 px-4 md:px-8 font-sans">
-      <div className="bg-white rounded-[20px] flex flex-col overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-black/10 mx-auto max-w-[1100px] relative">
+    <div className="w-full max-w-[1240px] mx-auto py-8 px-4 md:px-8 font-sans">
+      <div className="bg-white rounded-[20px] flex flex-col overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-black/10 mx-auto max-w-[1100px] relative h-[80vh] min-h-[500px] max-h-[750px] justify-between">
         
         {/* Background Grid Layer */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" 
@@ -118,19 +118,18 @@ export const DesktopTechUi = () => {
                   </div>
 
                   {/* RIGHT: ADVANCED TRACK with Gradient Box */}
-                  <div className="col-span-12 lg:col-span-4 pt-12 lg:pt-0 text-right flex flex-col items-end">
-                     <div className="bg-gradient-to-b from-white/80 via-white/50 to-white/10 border border-black/10 p-6 lg:p-10 rounded-[16px] backdrop-blur-[2px] flex flex-col items-end w-full flex-1 justify-center relative">
-                        {/* TAG MOVED INSIDE */}
-                        <div className="flex items-center gap-2 mb-8 justify-end">
-                           <span className="text-black/30 text-[10px] font-mono font-bold uppercase tracking-[0.25em]">ADVANCED TRACK</span>
-                           <div className="text-[16px] font-black text-[#8DC63F] leading-none mb-1">*</div>
+                  <div className="col-span-12 lg:col-span-4 pt-8 lg:pt-0 text-right flex flex-col items-end justify-center">
+                     <div className="bg-gradient-to-b from-white/80 via-white/50 to-white/10 border border-black/10 p-6 rounded-[16px] backdrop-blur-[2px] flex flex-col items-end w-full max-w-[280px] relative">
+                        <div className="flex items-center gap-2 mb-4 justify-end">
+                           <div className="text-[16px] font-black text-[#8DC63F] leading-none">*</div>
                         </div>
                         
-                        <h4 className="text-[32px] md:text-[36px] font-black uppercase text-black/40 tracking-tighter leading-[0.95] mb-6">
-                           {advanced.title}
+                        <h4 className="text-[20px] md:text-[24px] font-black uppercase text-black/70 tracking-tighter leading-[1.1] mb-3 text-right">
+                           {advanced.title} <br/>
+                           <span className="text-[12px] opacity-50 tracking-widest mt-1 block">ADVANCED TRACK</span>
                         </h4>
 
-                        <p className="text-[13px] leading-[1.6] text-black/40 font-medium max-w-[240px]">
+                        <p className="text-[12px] leading-[1.5] text-black/50 font-medium">
                            {advanced.description}
                         </p>
                      </div>
