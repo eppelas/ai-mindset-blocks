@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const FAQ_DATA = [
   {
-    category: 'ОРГАНИЗАЦИЯ И ПРОЦЕССЫ',
+    category: 'Организация и процессы',
     items: [
       { q: 'Наш подход к обучению', a: 'Практика прежде всего: реальные кейсы, практические задания и чеклисты в каждом модуле. Гибкость: программа подстраивается под динамику и интересы группы. Актуальность: следим за последними трендами в AI и обновляем контент. Философское осмысление: размышляем об этике и влиянии AI на будущее. Коллаборация: поощряем обмен идеями и опытом между участниками.' },
       { q: 'Будет ли возможность пообщаться с авторами курса лично?', a: 'Да, в рамках лаборатории предусмотрены коворкинги и Office Hours специально для разбора ваших вопросов авторами курса и кураторами. На воркшопах тоже предусмотрена возможность задавать вопросы.' },
@@ -11,7 +11,7 @@ const FAQ_DATA = [
     ]
   },
   {
-    category: 'ОЖИДАНИЯ И РЕЗУЛЬТАТ',
+    category: 'Ожидания и результат',
     items: [
       { q: 'Кому лаборатория подходит, а кому нет?', a: 'Подходит: предприниматели, менеджеры, аналитики, преподаватели, криэйторы, исследователи и философы и все, кто интересуется будущим и своей эффективностью. Технический уровень: от начального до продвинутого. Вы готовы разбираться в новом, инвестировать время и силы. НЕ для вас, если: вы не готовы самостоятельно решать технические сложности, не готовы оплатить необходимые инструменты (AI-модели), ждёте готовые решения и не хотите думать самостоятельно.' },
       { q: 'Инструменты, которые мы освоим', a: 'Текстовые LLM: ChatGPT, Custom GPTs, GPT Canvas, Claude, Claude Artefacts, Google Gemini, Groq, OpenRouter. Софт с интеграцией AI: Claude Code, WindSurf, Cursor, Taskade, Tactiq, Krisp, Ollama, LMStudio, MSTY, Obsidian. Автоматизация и ресерч: Perplexity, Consensus, DeepResearches, Elicit, Elevenlabs, SuperWhisper, WisprFlow, n8n, make, Vapi, AutoGPT, AIDER. Графические и видео инструменты: Midjourney, Runway ML, Dream Machine, Heygen, Stable Diffusion, Pika.' },
@@ -21,7 +21,7 @@ const FAQ_DATA = [
     ]
   },
   {
-    category: 'ОПЛАТА И УСЛОВИЯ',
+    category: 'Оплата и условия',
     items: [
       { q: 'Какие варианты оплаты?', a: 'Принимаем рубли, криптовалюты, евро и доллары по SWIFT, Paypal и другим сервисам.' },
       { q: 'Можете ли выставить счёт?', a: 'Да, можем выставить счёт на консультационные услуги от юрлица в Армении.' },
@@ -32,7 +32,7 @@ const FAQ_DATA = [
   }
 ];
 
-export const DesktopFaqV2 = () => {
+export const DesktopFaqV3 = () => {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
 
   const toggle = (id: string) => {
@@ -40,49 +40,49 @@ export const DesktopFaqV2 = () => {
   };
 
   return (
-    <div className="w-full bg-[#f3f3f5] py-8 px-4 md:px-6 font-sans overflow-hidden border-y border-black/10">
-      <div className="max-w-[800px] mx-auto flex flex-col md:flex-row gap-6">
-        
-        {/* Left Side: Header & Info */}
-        <div className="md:w-[220px] shrink-0 flex flex-col border-l-2 border-black pl-4">
-          <div className="text-[#8dc63f] font-mono font-bold text-[9px] tracking-[0.2em] mb-3 uppercase flex items-center gap-2">
-            <span className="w-3 h-[1px] bg-[#8dc63f]"></span> INFO_CENTER
-          </div>
-          <h2 className="text-2xl font-black uppercase tracking-tighter leading-none mb-4">
-            F.A.Q. <br />
-            <span className="text-black/30">QUESTIONS</span>
+    <div className="w-full bg-white py-16 px-4 font-sans border-y border-black/5">
+      <div className="max-w-[640px] mx-auto flex flex-col">
+        {/* Simple Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-black mb-2">
+            Частые вопросы
           </h2>
-          <div className="mt-auto hidden md:block">
-            <div className="font-mono text-[8px] text-black/40 uppercase mb-2 leading-relaxed tracking-wider">
-              * STATUS: OPERATIONAL<br />
-              * SOURCE: LAB_X26<br />
-              * UPDATED: 2024.MAR.20
-            </div>
-          </div>
+          <p className="text-sm text-black/50">Всё, что нужно знать перед стартом</p>
         </div>
 
-        {/* Right Side: Accordions */}
-        <div className="flex-1 flex flex-col gap-6">
+        {/* Accordion List */}
+        <div className="flex flex-col gap-8">
           {FAQ_DATA.map((cat, catIdx) => (
             <div key={catIdx}>
-              <div className="text-[9px] font-mono font-bold tracking-[0.2em] text-[#8dc63f] mb-3 uppercase border-b border-black/10 pb-1">
-                [{catIdx + 1}] // {cat.category}
-              </div>
-              <div className="flex flex-col border-t border-black/20">
+              {/* Category label - calm and subtle */}
+              <h3 className="text-[11px] font-semibold text-black/40 uppercase tracking-widest mb-3">
+                {cat.category}
+              </h3>
+              
+              <div className="flex flex-col border-t border-black/10">
                 {cat.items.map((item, itemIdx) => {
                     const id = `${catIdx}-${itemIdx}`;
                     const isOpen = openIndex === id;
+                    
                     return (
-                        <div key={itemIdx} className="border-b border-black/20 overflow-hidden bg-white/40 hover:bg-white transition-colors">
+                        <div key={itemIdx} className="border-b border-black/10 group">
                             <button 
                                 onClick={() => toggle(id)}
-                                className="w-full flex items-center justify-between p-3 lg:p-4 text-left group"
+                                className="w-full flex items-center justify-between py-4 text-left transition-colors hover:bg-black/[0.02] px-2 -mx-2 rounded-sm"
                             >
-                                <span className={`text-sm tracking-tight transition-colors pr-4 ${isOpen ? 'text-black font-bold' : 'text-black/70 font-medium group-hover:text-black'}`}>
+                                <span className="text-[15px] font-medium text-black/90 pr-8">
                                     {item.q}
                                 </span>
-                                <div className={`w-5 h-5 rounded-none border border-black/30 flex items-center justify-center font-mono text-xs transition-all shrink-0 ${isOpen ? 'bg-black text-white border-black' : 'bg-transparent text-black/50 group-hover:bg-[#8dc63f] group-hover:border-[#8dc63f] group-hover:text-white'}`}>
-                                    {isOpen ? '-' : '+'}
+                                <div className="shrink-0 text-black/40 group-hover:text-black/80 transition-colors">
+                                    <motion.div
+                                      initial={false}
+                                      animate={{ rotate: isOpen ? 45 : 0 }}
+                                      transition={{ duration: 0.2 }}
+                                    >
+                                      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                                        <path d="M6 1v10M1 6h10" />
+                                      </svg>
+                                    </motion.div>
                                 </div>
                             </button>
                             <AnimatePresence>
@@ -91,9 +91,10 @@ export const DesktopFaqV2 = () => {
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden bg-white/60"
+                                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                                        className="overflow-hidden"
                                     >
-                                        <div className="px-4 pb-4 pt-0 text-[13px] leading-relaxed text-black/60 max-w-2xl">
+                                        <div className="pb-5 pt-1 px-2 text-[14px] leading-relaxed text-black/60">
                                             {item.a}
                                         </div>
                                     </motion.div>
@@ -105,27 +106,17 @@ export const DesktopFaqV2 = () => {
               </div>
             </div>
           ))}
+        </div>
 
-          {/* Non-Profit Banner */}
-          <div className="mt-4 bg-black/5 p-4 border border-dashed border-black/15 relative overflow-hidden">
-             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                      <div className="w-1 h-1 bg-[#8dc63f]"></div>
-                      <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-[#8dc63f]">FREE SPOTS PROGRAM</span>
-                  </div>
-                  <h4 className="text-xs font-black uppercase mb-1 leading-tight">
-                      NON-PROFIT / ART СФЕРА?
-                  </h4>
-                  <p className="text-[10px] text-black/60 leading-relaxed max-w-[300px]">
-                      3 бесплатных места за мотивационное письмо.
-                  </p>
-                </div>
-                <button className="bg-black text-white px-4 py-2 font-mono font-bold text-[9px] uppercase tracking-widest hover:bg-[#8dc63f] transition-colors shrink-0 whitespace-nowrap">
-                    APPLY NOW
-                </button>
-             </div>
-          </div>
+        {/* Calm Non-Profit Box */}
+        <div className="mt-12 bg-[#F9F9F9] rounded-[14px] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-black/5">
+           <div>
+              <div className="text-[14px] font-medium text-black mb-1">Non-profit программа</div>
+              <div className="text-[13px] text-black/60">3 бесплатных места за мотивационное письмо</div>
+           </div>
+           <button className="text-[13px] font-medium text-white bg-black px-4 py-2.5 rounded-lg hover:bg-black/80 transition-colors whitespace-nowrap shadow-sm">
+              Подать заявку
+           </button>
         </div>
 
       </div>

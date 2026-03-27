@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useEffect, useRef, useState, type WheelEventHandler } from 'react';
 import { cn } from '../lib/utils';
 import { MorphSvg } from './MorphSvg';
 
@@ -144,8 +143,42 @@ const V7_PROGRAM_DATA = [
 
 export const DesktopTechUiV7 = () => {
   const [activeWeek, setActiveWeek] = useState(0);
+  const wheelDeltaRef = useRef(0);
+  const wheelLockRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (wheelLockRef.current !== null) {
+        window.clearTimeout(wheelLockRef.current);
+      }
+    };
+  }, []);
+
+  const setBoundedWeek = (nextWeek: number) => {
+    setActiveWeek(Math.max(0, Math.min(4, nextWeek)));
+  };
+
   const handleWeekClick = (idx: number) => {
-    setActiveWeek(idx);
+    setBoundedWeek(idx);
+  };
+
+  const handleWeekWheel: WheelEventHandler<HTMLDivElement> = (event) => {
+    if (Math.abs(event.deltaY) < 4) return;
+    event.preventDefault();
+
+    wheelDeltaRef.current += event.deltaY;
+
+    if (wheelLockRef.current !== null || Math.abs(wheelDeltaRef.current) < 48) {
+      return;
+    }
+
+    const direction = wheelDeltaRef.current > 0 ? 1 : -1;
+    wheelDeltaRef.current = 0;
+    setBoundedWeek(activeWeek + direction);
+
+    wheelLockRef.current = window.setTimeout(() => {
+      wheelLockRef.current = null;
+    }, 220);
   };
 
   const currentWeek = activeWeek < 4 ? V7_PROGRAM_DATA[activeWeek] : null;
@@ -153,10 +186,10 @@ export const DesktopTechUiV7 = () => {
   return (
     <div className="w-full font-sans py-12 px-2 md:px-8">
       {/* OUTER CARD */}
-      <div className="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row border border-black/15 shadow-xl bg-white min-h-[500px] overflow-hidden">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-start border border-black/15 shadow-xl bg-white min-h-[500px] overflow-hidden">
         
         {/* LEFT: FIXED STATIC SIDEBAR */}
-        <div className="w-full md:w-[160px] shrink-0 bg-[#FAFAFA] border-r border-black/10 flex flex-col relative py-8 px-4 z-20">
+        <div className="w-full md:w-[160px] md:min-h-[700px] md:self-start shrink-0 bg-[#FAFAFA] border-r border-black/10 flex flex-col relative py-8 px-4 z-20">
           {/* Main vertical line */}
           <div className="absolute left-[35px] top-[48px] bottom-[48px] w-[1px] bg-black/10 z-0 pointer-events-none" />
 
@@ -206,7 +239,10 @@ export const DesktopTechUiV7 = () => {
         </div>
 
         {/* RIGHT: TAB CONTENT REPLACED INSTEAD OF SCROLL */}
-        <div className="flex-1 relative bg-[#F9F9F9] flex flex-col">
+        <div
+          className="flex-1 relative bg-[#F9F9F9] flex flex-col overscroll-none"
+          onWheel={handleWeekWheel}
+        >
            {/* Background Grid (static) */}
            <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-10" 
                 style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '32px 32px' }} />

@@ -5,13 +5,31 @@ import { DesktopTechUiV5 } from './components/DesktopTechUiV5';
 import { DesktopTimeline } from './components/DesktopTimeline';
 import { DesktopTimelineV2 } from './components/DesktopTimelineV2';
 import { DesktopReviews } from './components/DesktopReviews';
+import { DesktopReviewsV2 } from './components/DesktopReviewsV2';
+import { DesktopReviewsV3 } from './components/DesktopReviewsV3';
 import { DesktopFaq } from './components/DesktopFaq';
+import { DesktopFaqV2 } from './components/DesktopFaqV2';
+import { DesktopFaqV3 } from './components/DesktopFaqV3';
+import { DesktopFaqV4 } from './components/DesktopFaqV4';
+import { DesktopFaqV5 } from './components/DesktopFaqV5';
 import { DesktopEcosystemNavigatorV2 } from './components/DesktopEcosystemNavigatorV2';
 import { DesktopMiniLabsNavigator } from './components/DesktopMiniLabsNavigator';
 import { DesktopMiniLabsNavigatorV2 } from './components/DesktopMiniLabsNavigatorV2';
 import { DesktopMicroLabsNavigator } from './components/DesktopMicroLabsNavigator';
 import { DesktopWidgetLabsNavigator } from './components/DesktopWidgetLabsNavigator';
 import { DesktopSidebar } from './components/DesktopSidebar';
+import { DesktopSpeakers } from './components/DesktopSpeakers';
+import { DesktopSpeakersV2 } from './components/DesktopSpeakersV2';
+import { DesktopSpeakersV3 } from './components/DesktopSpeakersV3';
+import { DesktopSpeakersV4 } from './components/DesktopSpeakersV4';
+import { DesktopSpeakersOriginal } from './components/DesktopSpeakersOriginal';
+import { DesktopCasesV1 } from './components/DesktopCasesV1';
+import { DesktopCasesV2 } from './components/DesktopCasesV2';
+import { DesktopCasesV3 } from './components/DesktopCasesV3';
+import { DesktopCasesV4 } from './components/DesktopCasesV4';
+import { DesktopCasesOriginal } from './components/DesktopCasesOriginal';
+import { DesktopPricingV1 } from './components/DesktopPricingV1';
+import { DesktopVoxelLogoLab } from './components/DesktopVoxelLogoLab';
 import { DesktopPaymentPopup } from './components/DesktopPaymentPopup';
 import { DesktopPaymentPopupV0 } from './components/DesktopPaymentPopupV0';
 import { DesktopPaymentPopupV2 } from './components/DesktopPaymentPopupV2';
@@ -26,6 +44,8 @@ import { DesktopTechUiV12 } from './components/DesktopTechUiV12';
 import { DesktopTechUiV13 } from './components/DesktopTechUiV13';
 import { useState, useEffect } from 'react';
 
+const TAB_IDS = ['program', 'program_main', 'reviews', 'faq', 'navigator', 'speakers', 'cases', 'pricing', 'voxel'] as const;
+
 export default function App() {
   const [isPaymentOpenV0, setIsPaymentOpenV0] = useState(false);
   const [isPaymentOpenV1, setIsPaymentOpenV1] = useState(false);
@@ -37,8 +57,13 @@ export default function App() {
 
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#program-new') {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'program-new') {
         setActiveTab('program_main');
+        return;
+      }
+      if ((TAB_IDS as readonly string[]).includes(hash)) {
+        setActiveTab(hash);
       }
     };
     
@@ -49,12 +74,21 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  const setTab = (tabId: string) => {
+    setActiveTab(tabId);
+    window.history.replaceState(null, '', `${window.location.pathname}#${tabId}`);
+  };
+
   const TABS = [
     { id: 'program', label: 'Программа до 24.03' },
     { id: 'program_main', label: 'Программа NEW' },
     { id: 'reviews', label: 'Отзывы участников' },
     { id: 'faq', label: 'FAQ' },
-    { id: 'navigator', label: 'Labs Navigator' }
+    { id: 'navigator', label: 'Labs Navigator' },
+    { id: 'speakers', label: 'Спикеры' },
+    { id: 'cases', label: 'Кейсы' },
+    { id: 'pricing', label: 'Тарифы' },
+    { id: 'voxel', label: 'Воксель / Лого' }
   ];
 
   return (
@@ -68,7 +102,7 @@ export default function App() {
         <div className="max-w-[1340px] mx-auto px-8 mb-12">
           {/* Payment Popups Section */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter text-black/95 mb-8">ПРИМЕРЫ ПОП-АПОВ ОПЛАТЫ</h2>
+          <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter text-black/95 mb-8">ПОП-АПЫ ОПЛАТЫ</h2>
           <div className="flex flex-wrap justify-center gap-4">
           <button onClick={() => setIsPaymentOpenV0(true)} className="px-6 py-4 bg-white border border-black/10 text-black/60 hover:text-black text-xs font-bold uppercase tracking-widest hover:scale-105 transition-all outline-none">
             [V0] ORIGINAL
@@ -89,12 +123,16 @@ export default function App() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-16 border-b border-black/10 pb-4">
+        <div className="mb-16 border border-black/10 bg-white/55 px-5 py-5">
+          <h2 className="mb-5 text-center text-2xl lg:text-3xl font-black uppercase tracking-tighter text-black/92">
+            БЛОКИ САЙТА
+          </h2>
+        <div className="flex flex-wrap justify-center gap-2 border-t border-black/10 pt-4">
           {TABS.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 font-bold text-xs uppercase tracking-widest transition-colors ${
+              onClick={() => setTab(tab.id)}
+              className={`min-w-[11rem] px-5 py-3 font-bold text-xs uppercase tracking-widest transition-colors text-left ${
                 activeTab === tab.id 
                   ? 'bg-black text-white' 
                   : 'bg-transparent text-black/50 hover:bg-black/5 hover:text-black'
@@ -103,6 +141,7 @@ export default function App() {
               {tab.label}
             </button>
           ))}
+        </div>
         </div>
       </div>
 
@@ -179,16 +218,44 @@ export default function App() {
         )}
 
         {activeTab === 'reviews' && (
-          <div className="pt-8">
-            <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">7. REVIEWS BLOCK (NEW)</h2>
-            <DesktopReviews />
+          <div className="pt-8 flex flex-col gap-24">
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">1. REVIEWS BLOCK</h2>
+              <DesktopReviews />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">2. REVIEWS BLOCK: LIVE SITE GRID</h2>
+              <DesktopReviewsV2 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">3. REVIEWS BLOCK: LIVE LOGIC / FIXED GRID</h2>
+              <DesktopReviewsV3 />
+            </div>
           </div>
         )}
 
         {activeTab === 'faq' && (
-          <div className="pt-8">
-            <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">8. FAQ BLOCK (NEW)</h2>
-            <DesktopFaq />
+          <div className="pt-8 flex flex-col gap-24">
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">5. FAQ: LOWERCASE MONO TECH (NEW)</h2>
+              <DesktopFaqV5 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">4. FAQ: NERD / TERMINAL COMPACT</h2>
+              <DesktopFaqV4 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">3. FAQ: CALM & CLEAN</h2>
+              <DesktopFaqV3 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">2. FAQ: COMPACT BRUTAL</h2>
+              <DesktopFaqV2 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">1. FAQ: BRUTALIST (ORIGINAL)</h2>
+              <DesktopFaq />
+            </div>
           </div>
         )}
 
@@ -224,6 +291,72 @@ export default function App() {
               <h2 className="text-3xl font-black px-8 pb-8 text-[#8DC63F] uppercase tracking-tighter text-center">5. WIDGET LABS NAVIGATOR (IFRAME STYLE)</h2>
               <DesktopWidgetLabsNavigator />
             </div>
+          </div>
+        )}
+
+        {activeTab === 'speakers' && (
+          <div className="pt-8 flex flex-col gap-24 items-center w-full">
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">1. СПИКЕРЫ: 5 КОЛОНОК (КВАДРАТНЫЕ)</h2>
+              <DesktopSpeakers />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">2. СПИКЕРЫ: 4 КОЛОНКИ (КРУГЛЫЕ)</h2>
+              <DesktopSpeakersV2 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black uppercase tracking-tighter text-center">3. СПИКЕРЫ: 4 КОЛОНКИ (КАК НА LIVE SITE, НО ОПИСАНИЯ ВСЕГДА ВИДНЫ)</h2>
+              <DesktopSpeakersV3 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">4. СПИКЕРЫ: БЕЗ 4 КОЛОНОК И БЕЗ ЛИНИИ ПЕРЕД ОПИСАНИЕМ</h2>
+              <DesktopSpeakersV4 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">5. СПИКЕРЫ: CURRENT LIVE SITE BLOCK / RELOCATED</h2>
+              <DesktopSpeakersOriginal />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'cases' && (
+          <div className="pt-8 flex flex-col gap-24 items-center w-full">
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">1. КЕЙСЫ: ВЕРТИКАЛЬНЫЕ HOVER-КАРТОЧКИ</h2>
+              <DesktopCasesV1 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">2. КЕЙСЫ: БЛИЖЕ К LIVE SITE, НО С ЧИТАЕМОЙ ИЕРАРХИЕЙ</h2>
+              <DesktopCasesV2 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">3. КЕЙСЫ: КОМПАКТНЫЕ, ТОЛЬКО НАЗВАНИЕ И ОДНА ФРАЗА</h2>
+              <DesktopCasesV3 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">4. КЕЙСЫ: КОМПАКТНЫЕ + ТЕГИ СТЕКА</h2>
+              <DesktopCasesV4 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">5. КЕЙСЫ: CURRENT LIVE SITE / RELOCATED</h2>
+              <DesktopCasesOriginal />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'pricing' && (
+          <div className="pt-8 flex flex-col gap-24 items-center w-full">
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">1. ТАРИФЫ: ВЕСЬ КОНТЕНТ СРАЗУ ВИДЕН</h2>
+              <DesktopPricingV1 />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'voxel' && (
+          <div className="pt-8">
+            <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">VOXEL LOGO LAB</h2>
+            <DesktopVoxelLogoLab />
           </div>
         )}
       </div>

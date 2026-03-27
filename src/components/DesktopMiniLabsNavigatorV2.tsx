@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../lib/utils';
 
+import { MindsetDynamicArt } from './MindsetDynamicArt';
+
 const ECOSYSTEM_CONTENT = [
   {
     id: 'spring-lab',
@@ -35,10 +37,8 @@ const ECOSYSTEM_CONTENT = [
     desc: 'Агентная инфраструктура',
     status: 'CURRENT',
     icon: (
-      <div className="flex-1 flex flex-col items-center justify-center w-full">
-        <span className="font-mono text-[14px] sm:text-[16px] tracking-[0.1em] font-black text-[#C084FC] whitespace-nowrap" style={{ textShadow: '0 0 8px rgba(192,132,252,0.5)' }}>
-          I BvF I
-        </span>
+      <div className="flex-1 w-full relative h-[40px] flex items-center justify-center isolate">
+        <MindsetDynamicArt className="w-[120px] h-[120px] absolute pointer-events-none" />
       </div>
     ),
   },
@@ -113,18 +113,20 @@ export const DesktopMiniLabsNavigatorV2 = () => {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full sm:w-auto mx-auto place-items-center">
                     {ECOSYSTEM_CONTENT.map((card) => (
                       <div key={card.id} className="relative group shrink-0 w-[140px] h-[140px] sm:w-[150px] sm:h-[150px] bg-white border border-black/10 p-4 flex flex-col hover:border-black/30 hover:shadow-lg transition-all cursor-pointer">
-                        <div className="flex justify-between items-start w-full">
-                          <h3 className="font-sans text-[12px] sm:text-[14px] font-black tracking-tighter uppercase text-left text-black leading-[1.1] group-hover:text-[#8DC63F] transition-colors pr-2 mt-0.5 break-words whitespace-pre-line">
+                        <div className="relative min-h-[30px] w-full mb-1">
+                          <h3 className="font-sans text-[12px] sm:text-[14px] font-black tracking-tighter uppercase text-left text-black leading-[1.1] group-hover:text-[#8DC63F] transition-colors pr-6 break-words whitespace-pre-line">
                             {card.title}
                           </h3>
-                          <span
-                            className={cn(
-                              'font-mono text-[6.5px] font-bold tracking-widest uppercase px-1 py-[3px] border shrink-0 leading-none',
-                              card.status === 'CURRENT' ? 'border-[#8DC63F]/50 text-[#8DC63F] bg-[#8DC63F]/5' : 'border-black/20 text-black/50'
-                            )}
-                          >
-                            {card.status}
-                          </span>
+                          <div className="absolute top-0 right-0">
+                            <span
+                              className={cn(
+                                'font-mono text-[6.5px] font-bold tracking-widest uppercase px-1 py-[3px] border shrink-0 leading-none',
+                                card.status === 'CURRENT' ? 'border-[#8DC63F]/50 text-[#8DC63F] bg-[#8DC63F]/5' : 'border-black/20 text-black/50'
+                              )}
+                            >
+                              {card.status}
+                            </span>
+                          </div>
                         </div>
 
                         {card.icon}

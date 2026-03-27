@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const FAQ_DATA = [
   {
@@ -32,100 +32,97 @@ const FAQ_DATA = [
   }
 ];
 
-export const DesktopFaqV2 = () => {
-  const [openIndex, setOpenIndex] = useState<string | null>(null);
+export const DesktopFaqV4 = () => {
+  const [openIdx, setOpenIdx] = useState<number | null>(0); // 0th is open by default
 
-  const toggle = (id: string) => {
-    setOpenIndex(openIndex === id ? null : id);
+  const toggle = (idx: number) => {
+    setOpenIdx(openIdx === idx ? null : idx);
   };
 
   return (
-    <div className="w-full bg-[#f3f3f5] py-8 px-4 md:px-6 font-sans overflow-hidden border-y border-black/10">
-      <div className="max-w-[800px] mx-auto flex flex-col md:flex-row gap-6">
+    <div className="w-full bg-[#f3f3f5] py-16 px-4 font-sans border-y border-black/10 flex justify-center">
+      {/* 3x times smaller -> target width ~380px-420px max */}
+      <div className="w-full max-w-[420px] flex flex-col">
         
-        {/* Left Side: Header & Info */}
-        <div className="md:w-[220px] shrink-0 flex flex-col border-l-2 border-black pl-4">
-          <div className="text-[#8dc63f] font-mono font-bold text-[9px] tracking-[0.2em] mb-3 uppercase flex items-center gap-2">
-            <span className="w-3 h-[1px] bg-[#8dc63f]"></span> INFO_CENTER
-          </div>
-          <h2 className="text-2xl font-black uppercase tracking-tighter leading-none mb-4">
-            F.A.Q. <br />
-            <span className="text-black/30">QUESTIONS</span>
-          </h2>
-          <div className="mt-auto hidden md:block">
-            <div className="font-mono text-[8px] text-black/40 uppercase mb-2 leading-relaxed tracking-wider">
-              * STATUS: OPERATIONAL<br />
-              * SOURCE: LAB_X26<br />
-              * UPDATED: 2024.MAR.20
-            </div>
-          </div>
+        {/* Module Terminal Header */}
+        <div className="flex justify-between items-end mb-4 border-b-2 border-black pb-2">
+           <div>
+              <div className="text-[9px] font-mono font-bold text-[#8DC63F] uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                 <div className="w-1.5 h-1.5 bg-[#8DC63F]" />
+                 [F.A.Q. MODULE]
+              </div>
+              <h2 className="text-[16px] font-black uppercase tracking-tight text-black leading-none">
+                 БАЗА ЗНАНИЙ
+              </h2>
+           </div>
+           <div className="text-[8px] font-mono text-black/40 uppercase tracking-widest text-right leading-[1.3]">
+              VER_3.0<br/>
+              SYS_READY
+           </div>
         </div>
 
-        {/* Right Side: Accordions */}
-        <div className="flex-1 flex flex-col gap-6">
-          {FAQ_DATA.map((cat, catIdx) => (
-            <div key={catIdx}>
-              <div className="text-[9px] font-mono font-bold tracking-[0.2em] text-[#8dc63f] mb-3 uppercase border-b border-black/10 pb-1">
-                [{catIdx + 1}] // {cat.category}
-              </div>
-              <div className="flex flex-col border-t border-black/20">
-                {cat.items.map((item, itemIdx) => {
-                    const id = `${catIdx}-${itemIdx}`;
-                    const isOpen = openIndex === id;
-                    return (
-                        <div key={itemIdx} className="border-b border-black/20 overflow-hidden bg-white/40 hover:bg-white transition-colors">
-                            <button 
-                                onClick={() => toggle(id)}
-                                className="w-full flex items-center justify-between p-3 lg:p-4 text-left group"
-                            >
-                                <span className={`text-sm tracking-tight transition-colors pr-4 ${isOpen ? 'text-black font-bold' : 'text-black/70 font-medium group-hover:text-black'}`}>
-                                    {item.q}
-                                </span>
-                                <div className={`w-5 h-5 rounded-none border border-black/30 flex items-center justify-center font-mono text-xs transition-all shrink-0 ${isOpen ? 'bg-black text-white border-black' : 'bg-transparent text-black/50 group-hover:bg-[#8dc63f] group-hover:border-[#8dc63f] group-hover:text-white'}`}>
-                                    {isOpen ? '-' : '+'}
-                                </div>
-                            </button>
-                            <AnimatePresence>
-                                {isOpen && (
-                                    <motion.div 
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden bg-white/60"
-                                    >
-                                        <div className="px-4 pb-4 pt-0 text-[13px] leading-relaxed text-black/60 max-w-2xl">
-                                            {item.a}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    );
-                })}
-              </div>
-            </div>
-          ))}
-
-          {/* Non-Profit Banner */}
-          <div className="mt-4 bg-black/5 p-4 border border-dashed border-black/15 relative overflow-hidden">
-             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                      <div className="w-1 h-1 bg-[#8dc63f]"></div>
-                      <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-[#8dc63f]">FREE SPOTS PROGRAM</span>
+        {/* Grouped Accordions */}
+        <div className="flex flex-col border border-black/15 bg-white shadow-sm">
+          {FAQ_DATA.map((cat, idx) => {
+            const isOpen = openIdx === idx;
+            return (
+              <div key={idx} className="border-b border-black/10 last:border-b-0">
+                <button 
+                  onClick={() => toggle(idx)}
+                  className={`w-full flex items-center justify-between px-3 py-3.5 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${isOpen ? 'bg-black text-white' : 'hover:bg-black/5 text-black'}`}
+                >
+                  <div className="flex items-center gap-3">
+                     <span className={`${isOpen ? 'text-[#8DC63F]' : 'text-black/30'}`}>[{idx + 1}]</span>
+                     <span>{cat.category}</span>
                   </div>
-                  <h4 className="text-xs font-black uppercase mb-1 leading-tight">
-                      NON-PROFIT / ART СФЕРА?
-                  </h4>
-                  <p className="text-[10px] text-black/60 leading-relaxed max-w-[300px]">
-                      3 бесплатных места за мотивационное письмо.
-                  </p>
-                </div>
-                <button className="bg-black text-white px-4 py-2 font-mono font-bold text-[9px] uppercase tracking-widest hover:bg-[#8dc63f] transition-colors shrink-0 whitespace-nowrap">
-                    APPLY NOW
+                  <span className={`${isOpen ? 'text-white' : 'text-black/40'}`}>
+                     {isOpen ? '—' : '+'}
+                  </span>
                 </button>
-             </div>
-          </div>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "circOut" }}
+                      className="overflow-hidden bg-white"
+                    >
+                      <div className="px-5 py-5 flex flex-col gap-5 border-t border-black/10">
+                         {cat.items.map((item, i) => (
+                           <div key={i} className="flex flex-col gap-1 max-w-[95%]">
+                             <div className="text-[11px] font-bold text-black uppercase tracking-tight font-sans flex items-start gap-1.5">
+                               <span className="text-[#8DC63F] font-mono select-none">Q:</span>
+                               <span>{item.q}</span>
+                             </div>
+                             <div className="text-[12px] text-black/70 leading-[1.4] font-sans pl-[18px]">
+                               {item.a}
+                             </div>
+                           </div>
+                         ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Interactive Mini-Banner: Non-Profit */}
+        <div className="mt-4 bg-black p-3 text-white flex items-center justify-between group cursor-pointer hover:bg-black/90 transition-colors shadow-lg">
+           <div className="flex flex-col gap-1.5 pl-1">
+              <span className="text-[#8DC63F] font-mono uppercase tracking-widest text-[8px] flex items-center gap-1.5">
+                 <span className="animate-pulse">_</span> GRANT_PROGRAM
+              </span>
+              <span className="uppercase text-[11px] font-bold tracking-tight">
+                 NON-PROFIT ТАРИФ (3 МЕСТА)
+              </span>
+           </div>
+           <div className="border border-white/20 px-3 py-1.5 uppercase font-mono text-[9px] font-bold group-hover:bg-[#8DC63F] group-hover:text-black group-hover:border-[#8DC63F] transition-colors">
+              APPLY
+           </div>
         </div>
 
       </div>

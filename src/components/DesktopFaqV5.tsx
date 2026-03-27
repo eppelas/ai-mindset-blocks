@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 const FAQ_DATA = [
   {
@@ -27,105 +27,103 @@ const FAQ_DATA = [
       { q: 'Можете ли выставить счёт?', a: 'Да, можем выставить счёт на консультационные услуги от юрлица в Армении.' },
       { q: 'Почему компании стоит купить этот курс для сотрудника?', a: 'Специальный тариф FOR TEAMS, экономия времени сотрудника, стоимость ниже найма нового специалиста, передача навыков коллегам, удобное совмещение с работой, автоматизация процессов.' },
       { q: 'Есть ли скидки для команд или возможность персонального консалтинга?', a: 'Да, есть тариф FOR TEAMS и расширенный пакет VISIONARY (индивидуальный трекинг, консультации, прямой доступ к авторам).' },
-      { q: 'Возможен ли возврат, если мне не подойдет формат лаборатории?', a: 'Да, возврат после первой недели без вопросов (за вычетом комиссий платежных систем).' }
+      { q: 'Возможен ли возврат, если мне не подойдет формат лаборатории?', a: 'Да, возврат после первой недели без вопросов (за вычетом комиссий платежных систем).' },
+      { q: 'А как мне податься как Non-profit?', a: 'Мы предлагаем 3 бесплатных места на основе конкурса мотивационных писем для представителей некоммерческих и творческих организаций. Напишите нам для подачи заявки.' }
     ]
   }
 ];
 
-export const DesktopFaqV2 = () => {
-  const [openIndex, setOpenIndex] = useState<string | null>(null);
+type DesktopFaqV5Props = {
+  title?: string;
+  statusLabel?: string | null;
+  versionLabel?: string | null;
+};
 
-  const toggle = (id: string) => {
-    setOpenIndex(openIndex === id ? null : id);
+export const DesktopFaqV5 = ({
+  title = 'база знаний',
+  statusLabel = 'sys_ready',
+  versionLabel = 'ver_5.0',
+}: DesktopFaqV5Props) => {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+
+  const toggle = (idx: number) => {
+    setOpenIdx(openIdx === idx ? null : idx);
   };
 
   return (
-    <div className="w-full bg-[#f3f3f5] py-8 px-4 md:px-6 font-sans overflow-hidden border-y border-black/10">
-      <div className="max-w-[800px] mx-auto flex flex-col md:flex-row gap-6">
+    <div className="w-full bg-[#f3f3f5] py-16 px-4 font-sans border-y border-black/10 flex justify-center">
+      <div className="w-full max-w-[800px] flex flex-col">
         
-        {/* Left Side: Header & Info */}
-        <div className="md:w-[220px] shrink-0 flex flex-col border-l-2 border-black pl-4">
-          <div className="text-[#8dc63f] font-mono font-bold text-[9px] tracking-[0.2em] mb-3 uppercase flex items-center gap-2">
-            <span className="w-3 h-[1px] bg-[#8dc63f]"></span> INFO_CENTER
-          </div>
-          <h2 className="text-2xl font-black uppercase tracking-tighter leading-none mb-4">
-            F.A.Q. <br />
-            <span className="text-black/30">QUESTIONS</span>
-          </h2>
-          <div className="mt-auto hidden md:block">
-            <div className="font-mono text-[8px] text-black/40 uppercase mb-2 leading-relaxed tracking-wider">
-              * STATUS: OPERATIONAL<br />
-              * SOURCE: LAB_X26<br />
-              * UPDATED: 2024.MAR.20
-            </div>
-          </div>
+        {/* Module Terminal Header */}
+        <div className="flex justify-between items-end mb-4 border-b-2 border-black pb-2">
+           <div>
+              <div className="text-[10px] font-mono text-[#8DC63F] lowercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                 <div className="w-1.5 h-1.5 bg-[#8DC63F]" />
+                 [f.a.q. module]
+              </div>
+              <h2 className="text-[20px] font-mono lowercase font-bold tracking-tight text-black leading-none">
+                 {title}
+              </h2>
+           </div>
+           {(statusLabel || versionLabel) && (
+             <div className="text-[10px] font-mono text-black/40 lowercase tracking-widest text-right leading-[1.3]">
+               {statusLabel && (
+                 <>
+                   {statusLabel}
+                   {versionLabel ? <br /> : null}
+                 </>
+               )}
+               {versionLabel}
+             </div>
+           )}
         </div>
 
-        {/* Right Side: Accordions */}
-        <div className="flex-1 flex flex-col gap-6">
-          {FAQ_DATA.map((cat, catIdx) => (
-            <div key={catIdx}>
-              <div className="text-[9px] font-mono font-bold tracking-[0.2em] text-[#8dc63f] mb-3 uppercase border-b border-black/10 pb-1">
-                [{catIdx + 1}] // {cat.category}
-              </div>
-              <div className="flex flex-col border-t border-black/20">
-                {cat.items.map((item, itemIdx) => {
-                    const id = `${catIdx}-${itemIdx}`;
-                    const isOpen = openIndex === id;
-                    return (
-                        <div key={itemIdx} className="border-b border-black/20 overflow-hidden bg-white/40 hover:bg-white transition-colors">
-                            <button 
-                                onClick={() => toggle(id)}
-                                className="w-full flex items-center justify-between p-3 lg:p-4 text-left group"
-                            >
-                                <span className={`text-sm tracking-tight transition-colors pr-4 ${isOpen ? 'text-black font-bold' : 'text-black/70 font-medium group-hover:text-black'}`}>
-                                    {item.q}
-                                </span>
-                                <div className={`w-5 h-5 rounded-none border border-black/30 flex items-center justify-center font-mono text-xs transition-all shrink-0 ${isOpen ? 'bg-black text-white border-black' : 'bg-transparent text-black/50 group-hover:bg-[#8dc63f] group-hover:border-[#8dc63f] group-hover:text-white'}`}>
-                                    {isOpen ? '-' : '+'}
-                                </div>
-                            </button>
-                            <AnimatePresence>
-                                {isOpen && (
-                                    <motion.div 
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden bg-white/60"
-                                    >
-                                        <div className="px-4 pb-4 pt-0 text-[13px] leading-relaxed text-black/60 max-w-2xl">
-                                            {item.a}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    );
-                })}
-              </div>
-            </div>
-          ))}
-
-          {/* Non-Profit Banner */}
-          <div className="mt-4 bg-black/5 p-4 border border-dashed border-black/15 relative overflow-hidden">
-             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                      <div className="w-1 h-1 bg-[#8dc63f]"></div>
-                      <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-[#8dc63f]">FREE SPOTS PROGRAM</span>
+        {/* Grouped Accordions */}
+        <div className="flex flex-col border border-black/15 bg-white shadow-sm">
+          {FAQ_DATA.map((cat, idx) => {
+            const isOpen = openIdx === idx;
+            return (
+              <div key={idx} className="border-b border-black/10 last:border-b-0">
+                <button 
+                  onClick={() => toggle(idx)}
+                  className={`w-full flex items-center justify-between px-5 py-4 font-mono text-[13px] lowercase font-bold tracking-wider transition-colors ${isOpen ? 'bg-black text-white' : 'hover:bg-black/5 text-black'}`}
+                >
+                  <div className="flex items-center gap-3">
+                     <span>{cat.category.toLowerCase()}</span>
                   </div>
-                  <h4 className="text-xs font-black uppercase mb-1 leading-tight">
-                      NON-PROFIT / ART СФЕРА?
-                  </h4>
-                  <p className="text-[10px] text-black/60 leading-relaxed max-w-[300px]">
-                      3 бесплатных места за мотивационное письмо.
-                  </p>
-                </div>
-                <button className="bg-black text-white px-4 py-2 font-mono font-bold text-[9px] uppercase tracking-widest hover:bg-[#8dc63f] transition-colors shrink-0 whitespace-nowrap">
-                    APPLY NOW
+                  <span className={`${isOpen ? 'text-white' : 'text-black/40'}`}>
+                     {isOpen ? '—' : '+'}
+                  </span>
                 </button>
-             </div>
-          </div>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "circOut" }}
+                      className="overflow-hidden bg-white"
+                    >
+                      <div className="px-6 py-6 flex flex-col gap-6 border-t border-black/10">
+                         {cat.items.map((item, i) => (
+                           <div key={i} className="flex flex-col gap-1.5 max-w-[95%]">
+                             <div className="text-[14px] text-black font-mono font-bold lowercase tracking-tight flex items-start gap-2">
+                               <span className="text-[#8DC63F] font-mono select-none">q:</span>
+                               <span>{item.q.toLowerCase()}</span>
+                             </div>
+                             <div className="text-[14px] text-black/70 leading-[1.45] font-sans pl-[20px]">
+                               {item.a}
+                             </div>
+                           </div>
+                         ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
 
       </div>
