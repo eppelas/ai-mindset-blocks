@@ -422,11 +422,11 @@ export function InvertedVoxelLogoFace({ scale = 1, opacity = 1, className = '' }
         const row = Math.floor(index / columns);
         const cellKey = `${column},${row}`;
         const adjustedY = candidate.y + rightHalfYOffset;
-        const introPosition = getIntroPosition(candidate.x, adjustedY, drawX, drawY, drawSize);
+        const introPosition = getIntroPosition(drawX, drawY, drawSize);
         const manualOffsetX = manualVoxelOffsetX.get(cellKey) ?? 0;
 
         return [{
-          homeX: candidate.x - getSeamShift(candidate.x, candidate.y) + manualOffsetX,
+          homeX: candidate.x - getSeamShift(candidate.x) + manualOffsetX,
           homeY: adjustedY,
           x: introPosition.x,
           y: introPosition.y,
