@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { InvertedVoxelLogoFace } from './InvertedVoxelLogoFace';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const LOGO_SRC = `${BASE_URL}reviews/ai-mindset-logo.png`;
@@ -142,7 +143,10 @@ function AnimatedSplitVoxelLogo({ variant }: { variant: VoxelVariant }) {
     const isInsideEyeZone = (x: number, y: number) => {
       const normalizedX = (x - drawX) / drawSize;
       const normalizedY = (y - drawY) / drawSize;
-      return normalizedX > 0.62 && normalizedX < 0.9 && normalizedY > 0.43 && normalizedY < 0.61;
+      const mainEye = normalizedX > 0.56 && normalizedX < 0.86 && normalizedY > 0.445 && normalizedY < 0.605;
+      const upperScoop = normalizedX > 0.68 && normalizedX < 0.84 && normalizedY > 0.435 && normalizedY < 0.48;
+      const rightPupil = normalizedX > 0.78 && normalizedX < 0.92 && normalizedY > 0.47 && normalizedY < 0.545;
+      return mainEye || upperScoop || rightPupil;
     };
 
     const isInsideEyeContourZone = (x: number, y: number) => {
@@ -369,7 +373,22 @@ export function DesktopVoxelLogoLab() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-          <div>
+          <div className="flex flex-col gap-6">
+            <div className="border border-black/10 bg-[#f9f9f7] p-5 md:p-6">
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4 font-mono text-[11px] uppercase tracking-[0.18em] text-black/48">
+                <span>[ INVERTED / NEW VERSION ]</span>
+                <span>hover / scroll</span>
+              </div>
+
+              <div className="mx-auto max-w-[520px]">
+                <InvertedVoxelLogoFace />
+              </div>
+
+              <div className="mt-5 border-t border-black/10 pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-black/46">
+                Финал с чёрным левым полукругом и откушенным глазом
+              </div>
+            </div>
+
             <VariantCard variant={ACTIVE_VARIANT} />
           </div>
 

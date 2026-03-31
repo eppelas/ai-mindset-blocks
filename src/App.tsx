@@ -7,6 +7,7 @@ import { DesktopTimelineV2 } from './components/DesktopTimelineV2';
 import { DesktopReviews } from './components/DesktopReviews';
 import { DesktopReviewsV2 } from './components/DesktopReviewsV2';
 import { DesktopReviewsV3 } from './components/DesktopReviewsV3';
+import { DesktopReviewsV4 } from './components/DesktopReviewsV4';
 import { DesktopFaq } from './components/DesktopFaq';
 import { DesktopFaqV2 } from './components/DesktopFaqV2';
 import { DesktopFaqV3 } from './components/DesktopFaqV3';
@@ -22,6 +23,8 @@ import { DesktopSpeakers } from './components/DesktopSpeakers';
 import { DesktopSpeakersV2 } from './components/DesktopSpeakersV2';
 import { DesktopSpeakersV3 } from './components/DesktopSpeakersV3';
 import { DesktopSpeakersV4 } from './components/DesktopSpeakersV4';
+import { DesktopSpeakersV5 } from './components/DesktopSpeakersV5';
+import { DesktopSpeakersV6 } from './components/DesktopSpeakersV6';
 import { DesktopSpeakersOriginal } from './components/DesktopSpeakersOriginal';
 import { DesktopCasesV1 } from './components/DesktopCasesV1';
 import { DesktopCasesV2 } from './components/DesktopCasesV2';
@@ -42,6 +45,7 @@ import { DesktopTechUiV9 } from './components/DesktopTechUiV9';
 import { DesktopTechUiV10 } from './components/DesktopTechUiV10';
 import { DesktopTechUiV12 } from './components/DesktopTechUiV12';
 import { DesktopTechUiV13 } from './components/DesktopTechUiV13';
+import { DesktopTechUiV14, DesktopTechUiV15, DesktopTechUiV16, DesktopTechUiV17, DesktopTechUiV18 } from './components/DesktopTechUiV14';
 import { useState, useEffect } from 'react';
 
 const TAB_IDS = ['program', 'program_main', 'reviews', 'faq', 'navigator', 'speakers', 'cases', 'pricing', 'voxel'] as const;
@@ -150,6 +154,7 @@ export default function App() {
         {activeTab === 'program' && (
           <div className="pt-8">
             <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">ПРОГРАММА ДО 24.03</h2>
+            <h3 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 1</h3>
             <DesktopTechUiV5 />
             
             <div className="flex flex-col gap-32 pt-32">
@@ -174,23 +179,23 @@ export default function App() {
                 <DesktopTimelineV2 />
               </div>
               <div>
-                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 8 (B1)</h2>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 7</h2>
                 <DesktopTechUiV8 />
               </div>
               <div>
-                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 9 (C3)</h2>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 8</h2>
                 <DesktopTechUiV9 />
               </div>
               <div>
-                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 10 (C2 / VARIANT 5 ANIMATED)</h2>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 9</h2>
                 <DesktopTechUiV10 />
               </div>
               <div>
-                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 12 (E1)</h2>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 10</h2>
                 <DesktopTechUiV12 />
               </div>
               <div>
-                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 13 (D4)</h2>
+                <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 11</h2>
                 <DesktopTechUiV13 />
               </div>
             </div>
@@ -199,16 +204,51 @@ export default function App() {
 
         {activeTab === 'program_main' && (
           <div className="flex flex-col gap-32 pt-8 w-full items-center">
-            
+
             <div className="w-full flex justify-center flex-col items-center">
-              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">VERSION 6 (COMPACT LIST)</h2>
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 12</h2>
+              <div className="w-full max-w-[1340px] flex justify-center">
+                <DesktopTechUiV18 />
+              </div>
+            </div>
+
+            <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 13</h2>
+              <div className="w-full max-w-[1340px] flex justify-center">
+                <DesktopTechUiV16 />
+              </div>
+            </div>
+
+            <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 14</h2>
+              <div className="w-full max-w-[1340px] flex justify-center">
+                <DesktopTechUiV17 />
+              </div>
+            </div>
+            
+            <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 15</h2>
+              <div className="w-full max-w-[1340px] flex justify-center">
+                <DesktopTechUiV14 />
+              </div>
+            </div>
+
+            <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 16</h2>
+              <div className="w-full max-w-[1340px] flex justify-center">
+                <DesktopTechUiV15 />
+              </div>
+            </div>
+
+            <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 17</h2>
               <div className="w-full max-w-[1440px] flex justify-center">
                 <DesktopTechUiV6 />
               </div>
             </div>
 
             <div className="w-full flex justify-center flex-col items-center border-t border-black/10 pt-32">
-              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">VERSION 7 (INNER SCROLL CARD)</h2>
+              <h2 className="text-xl font-bold px-8 pb-4 text-black/40 uppercase tracking-widest text-center">ВЕРСИЯ 18</h2>
               <div className="w-full max-w-[1200px] flex justify-center">
                 <DesktopTechUiV7 />
               </div>
@@ -226,6 +266,10 @@ export default function App() {
             <div>
               <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">2. REVIEWS BLOCK: LIVE SITE GRID</h2>
               <DesktopReviewsV2 />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">4. REVIEWS BLOCK: CLEAN UI (SCREENSHOT REFERENCE)</h2>
+              <DesktopReviewsV4 />
             </div>
             <div>
               <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">3. REVIEWS BLOCK: LIVE LOGIC / FIXED GRID</h2>
@@ -313,7 +357,15 @@ export default function App() {
               <DesktopSpeakersV4 />
             </div>
             <div className="w-full">
-              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">5. СПИКЕРЫ: CURRENT LIVE SITE BLOCK / RELOCATED</h2>
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">5. СПИКЕРЫ: ПОРТРЕТЫ 2:3 / ТЕКСТ ВСЕГДА СНИЗУ / УГЛОВЫЕ РАМКИ</h2>
+              <DesktopSpeakersV5 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-[#8DC63F] uppercase tracking-tighter text-center">6. СПИКЕРЫ: 4 КОЛОНКИ (КРУГЛЫЕ, + ТЕКСТ ВНИЗУ)</h2>
+              <DesktopSpeakersV6 />
+            </div>
+            <div className="w-full">
+              <h2 className="text-3xl font-black px-8 pb-12 text-black/90 uppercase tracking-tighter text-center">7. СПИКЕРЫ: CURRENT LIVE SITE BLOCK / RELOCATED</h2>
               <DesktopSpeakersOriginal />
             </div>
           </div>
