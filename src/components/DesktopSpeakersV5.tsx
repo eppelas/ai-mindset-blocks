@@ -11,21 +11,23 @@ const CornerFrame = () => (
 
 export const DesktopSpeakersV5 = () => {
   return (
-    <div className="flex w-full justify-center border-y border-black/5 bg-[#f8f8f8] px-8 py-24 font-sans">
+    <div className="flex w-full justify-center border-y border-black/5 bg-[#f8f8f8] px-8 py-20 font-sans">
       <div className="flex w-full max-w-[1340px] flex-col">
-        <div className="mb-12 flex items-end gap-10">
-          <div className="mb-1 shrink-0 text-[14px] font-bold uppercase tracking-[0.2em] text-black/40">
-            LAB TEAM
+        <div className="mb-16 flex items-end gap-3 md:gap-10">
+          <div className="mb-[0.15rem] shrink-0 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 md:mb-[0.25rem] md:text-[13px]">
+            команда лаборатории
           </div>
-          <div className="mx-4 mb-2 h-px w-full flex-1 bg-black/10" />
-          <h2 className="shrink-0 text-right text-6xl font-black uppercase tracking-tighter">
-            СПИКЕРЫ
+          <div className="mb-[0.45rem] h-px min-w-[20px] flex-1 bg-black/10 md:mb-[0.75rem]" />
+          <h2 className="shrink-0 text-right text-xl font-black uppercase tracking-widest md:text-5xl/none">
+            Спикеры
           </h2>
         </div>
 
-        <p className="mb-16 font-mono text-sm uppercase tracking-tighter text-black/60">
-          НИЖЕ — ВАРИАНТ НА БАЗЕ КРУГЛОЙ ВЕРСИИ, НО С ВЕРТИКАЛЬНЫМИ ПОРТРЕТАМИ И ТЕКСТОМ, КОТОРЫЙ ВСЕГДА ЖИВЁТ НИЖЕ.
-        </p>
+        <div className="mb-16 max-w-3xl">
+          <p className="text-sm leading-relaxed text-black/70 md:text-base">
+            ниже — проводники, которые будут рядом на всём протяжении лаборатории.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
           {RESEARCH_SPEAKERS.map((member) => (
